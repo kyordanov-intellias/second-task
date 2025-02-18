@@ -1,6 +1,5 @@
 import { UserRole } from "./types";
 
-//TODO log decorator
 
 export function Log(target: any, key: string, descriptor: PropertyDescriptor) {
     const originlMethod = descriptor.value;

@@ -1,16 +1,23 @@
-type EventCallback = (data: any) => void;
+import { User } from './user';
+
+type EventMap = {
+    userCreated: User;
+    userDeleted: User;
+}
+
+type EventCallback<T> = (data: T) => void;
 
 export class EventSystem {
-    private events: Map<string, EventCallback[]> = new Map();
+    private events = new Map<keyof EventMap, EventCallback<any>[]>();
 
-    on(event: string, callback: EventCallback) {
+    on<K extends keyof EventMap>(event: K, callback: EventCallback<EventMap[K]>) {
         if (!this.events.has(event)) {
             this.events.set(event, []);
-            this.events.get(event)!.push(callback);
-        };
-    };
+        }
+        this.events.get(event)!.push(callback);
+    }
 
-    emit(event: string, data: any) {
+    emit<K extends keyof EventMap>(event: K, data: EventMap[K]) {
         this.events.get(event)?.forEach(callback => callback(data));
-    };
-};
+    }
+}
