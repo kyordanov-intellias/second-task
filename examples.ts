@@ -91,3 +91,25 @@ type Common = Extract<number | string, string | boolean>; // Common is 'string'
 
 //10. NonNullable<Type> - removes null and undefined from a type
 type NonNullString = NonNullable<string | null | undefined>; // NonNullString is 'string'
+
+
+class Animal {
+    protected name: string;
+
+    constructor(name: string) {
+        this.name = name;
+    };
+
+    move(distanceInMeters: number): void {
+        console.log(`${this.name} moved ${distanceInMeters}m.`);
+    };
+};
+
+class Bird extends Animal {
+    fly(distanceInMeters: number) {
+        console.log(`${this.name} moved ${distanceInMeters}m.`);
+    }
+}
+
+const an1 = new Animal('Paco');
+const bird1 = new Bird('levski');

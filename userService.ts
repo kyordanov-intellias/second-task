@@ -6,8 +6,12 @@ import { EventSystem } from "./events";
 import { isUser } from "./validation";
 
 export class UserService {
-  private db = new Database<User>();
+  private db: Database<User>;
   private eventSystem = new EventSystem();
+
+  constructor(db: Database<User>) {
+    this.db = db;
+  }
 
   @Log
   async createUser(user: User) {
@@ -22,5 +26,9 @@ export class UserService {
   async deleteUser(user: User, role: UserRole) {
     await this.db.delete(user.id);
     this.eventSystem.emit('userDeleted', user);
+  }
+
+  async getUserById(id: string) {
+    return await this.db.read(id);
   }
 }

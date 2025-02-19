@@ -1,7 +1,3 @@
-import { Entity, UserRole } from "./types";
-
-
-//TODO fix the Entity Generic
 export abstract class BaseEntity<T extends object> {
     id: string;
     createdAt: Date;
